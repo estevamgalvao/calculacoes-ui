@@ -1,0 +1,150 @@
+// file-upload-card.component.scss
+.file-upload-card {
+  max-width: 450px;
+  margin: 0 auto;
+
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .card {
+    border-radius: 12px;
+    border: 2px dashed #dee2e6;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: #0d6efd;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+    }
+  }
+
+  .card-body {
+    padding: 2rem;
+  }
+
+  // Empty State Styles
+  .empty-state {
+    text-align: center;
+    padding: 1.5rem 0;
+
+    .upload-icon-wrapper {
+      i {
+        transition: transform 0.3s ease;
+      }
+    }
+
+    &:hover .upload-icon-wrapper i {
+      transform: translateY(-5px);
+    }
+  }
+
+  // File Info Styles
+  .file-info-section {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+
+    .file-icon-wrapper {
+      flex-shrink: 0;
+    }
+
+    .file-details {
+      flex: 1;
+      min-width: 0;
+
+      .file-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #212529;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 250px;
+      }
+
+      .file-size {
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .badge {
+        font-size: 0.75rem;
+        padding: 0.35em 0.65em;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+    }
+
+    .btn-close {
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  // Button Styles
+  .upload-button-wrapper {
+    label.btn {
+      cursor: pointer;
+      font-weight: 500;
+      padding: 0.625rem 1.25rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+
+      i {
+        margin-right: 0.5rem;
+      }
+
+      &:hover:not(.disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+      }
+
+      &:active:not(.disabled) {
+        transform: translateY(0);
+      }
+
+      &.disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  // Animation
+  .animate-in {
+    animation: fadeInUp 0.4s ease;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 576px) {
+  .file-upload-card {
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .file-info-section {
+      .file-details .file-name {
+        max-width: 180px;
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<!-- file-upload-card.component.html -->
+<div class="file-upload-card" [class.disabled]="disabled">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <!-- File Info Section (shown when file is uploaded) -->
+      <div *ngIf="uploadedFile" class="file-info-section animate-in">
+        <div class="file-icon-wrapper">
+          <i class="fas fa-file-alt fa-3x text-primary"></i>
+        </div>
+        
+        <div class="file-details">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6 class="file-name mb-0" [title]="uploadedFile.name">
+              {{ uploadedFile.name }}
+            </h6>
+            <button 
+              type="button" 
+              class="btn-close btn-close-sm" 
+              aria-label="Remove file"
+              (click)="onRemoveFile($event)"
+              [disabled]="disabled || uploadedFile.status === 'loading'">
+            </button>
+          </div>
+          
+          <div class="d-flex align-items-center gap-2">
+            <span class="file-size text-muted">
+              <i class="fas fa-database me-1"></i>
+              {{ formatFileSize(uploadedFile.size) }} MB
+            </span>
+            <span 
+              class="badge" 
+              [ngClass]="getStatusBadgeClass()">
+              <i class="fas" [ngClass]="getStatusIcon()"></i>
+              {{ getStatusText() }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State (shown when no file is uploaded) -->
+      <div *ngIf="!uploadedFile" class="empty-state">
+        <div class="upload-icon-wrapper">
+          <i class="fas fa-cloud-upload-alt fa-4x text-muted"></i>
+        </div>
+        <p class="text-muted mb-0 mt-3">
+          <small>Drag and drop or click to upload</small>
+        </p>
+      </div>
+
+      <!-- Upload Button -->
+      <div class="upload-button-wrapper mt-3">
+        <label class="btn btn-primary w-100 mb-0" [class.disabled]="disabled">
+          <i class="fas" [ngClass]="uploadedFile ? 'fa-sync-alt' : 'fa-upload'"></i>
+          {{ uploadedFile ? 'Resend file' : 'Upload file' }}
+          <input 
+            type="file" 
+            class="d-none" 
+            [accept]="acceptedFormats"
+            (change)="onFileSelected($event)"
+            [disabled]="disabled">
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

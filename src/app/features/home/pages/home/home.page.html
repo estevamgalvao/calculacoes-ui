@@ -1,1 +1,17 @@
-<app-file-upload></app-file-upload>
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col">
+            <h1>Welcome to the Home Page</h1>
+            <p>This is the main landing page of the application.</p>
+        </div>
+    </div>
+    <app-file-upload-card
+      [uploadedFile]="currentFile"
+      [acceptedFormats]="'.pdf,.doc,.docx,.xlsx,.csv'"
+      [maxSizeInMB]="5"
+      [disabled]="isUploading"
+      (fileSelected)="onFileSelected($event)"
+      (fileRemoved)="onFileRemoved()">
+    </app-file-upload-card>
+</div> 
