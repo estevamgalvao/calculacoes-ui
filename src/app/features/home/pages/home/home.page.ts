@@ -9,34 +9,38 @@ import { FileUploadCardComponent, UploadedFile } from '../../components/file-upl
 })
 export class HomePage {
 
-  currentFile: UploadedFile | null = null;
+  currentFile: File | null = null;
+  currentFileMetadata: UploadedFile | null = null;
   isUploading = false;
+  // uploadingStatus: 'loading' | 'ready' | null = null;
 
   onFileSelected(file: File): void {
+    console.log('File selected:', file);
     // Set initial loading state
-    this.currentFile = {
-      name: file.name,
-      size: file.size,
-      status: 'loading'
+    this.currentFile = file;
+
+    this.currentFileMetadata = {
+          ...this.currentFileMetadata, //nenhum filho atualiza, porque Angular não detecta mutação, apenas nova referência
+          name: file.name,
+          size: file.size,
+          status: 'loading'
     };
 
     // Simulate upload process
     this.isUploading = true;
-    
-    // Your actual upload logic here
-    setTimeout(() => {
-      if (this.currentFile) {
-        this.currentFile = {
-          ...this.currentFile,
+
+      this.isUploading = false;
+      this.currentFileMetadata = {
+          ...this.currentFileMetadata, //nenhum filho atualiza, porque Angular não detecta mutação, apenas nova referência
+          name: file.name,
+          size: file.size,
           status: 'ready'
         };
-      }
-      this.isUploading = false;
-    }, 2000);
   }
 
   onFileRemoved(): void {
     this.currentFile = null;
+    this.currentFileMetadata = null;
   }
 
 }
