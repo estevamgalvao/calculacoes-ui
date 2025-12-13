@@ -90,13 +90,13 @@
         align-items: center;
         gap: 0.35rem;
         
-        &.bg-warning {
+/*         &.bg-warning { //already on style.scss
           background-color: var(--color-warning) !important;
         }
         
         &.bg-success {
           background-color: var(--color-profit) !important;
-        }
+        } */
       }
     }
 
