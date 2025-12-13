@@ -1,0 +1,73 @@
+
+:root {
+  // Primary Colors
+  --color-primary: #0D3B66;
+  --color-primary-light: #3E92CC;
+  --color-primary-dark: #082540;
+  --color-primary-rgb: 13, 59, 102; // Para usar com opacity
+  
+  // Background Colors
+  --color-background: #F7F9FC;
+  --color-background-card: #FFFFFF;
+  --color-background-hover: #EEF2F7;
+  
+  // Text Colors
+  --color-text: #1A1A1A;
+  --color-text-secondary: #6C757D;
+  --color-text-muted: #9CA3AF;
+  
+  // Border & Dividers
+  --color-border: #D9E1E8;
+  --color-border-light: #E5E7EB;
+  
+  // Status Colors
+  --color-profit: #2CB67D;
+  --color-loss: #D64550;
+  --color-warning: #F59E0B;
+  --color-info: #3E92CC;
+  
+  // Shadows
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  
+  // Border Radius
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  
+  // Transitions
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+// ============================================
+// BOOTSTRAP OVERRIDES
+// ============================================
+
+// Bootstrap colors
+$primary: #0D3B66;
+$secondary: #3E92CC;
+$success: #2CB67D;
+$danger: #D64550;
+$info: #3E92CC;
+$light: #F7F9FC;
+$dark: #1A1A1A;
+
+// Bootstrap vars
+$body-bg: #F7F9FC;
+$body-color: #1A1A1A;
+$border-color: #D9E1E8;
+$border-radius: 10px;
+$card-border-radius: 12px;
+
+[data-theme="dark"] {
+  --color-primary: #3E92CC;
+  --color-primary-light: #5BA3D9;
+  --color-background: #1A1A1A;
+  --color-background-card: #2D2D2D;
+  --color-text: #F7F9FC;
+  --color-text-secondary: #B0B0B0;
+  --color-border: #404040;
+}

@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+// src/styles.scss
+
+// order matters, first most important
+@use 'styles/theme.scss';
+
+/* @import '~bootstrap/scss/bootstrap';
+
+@import '~@fortawesome/fontawesome-free/css/all.min.css'; */
+
+// global styles
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+// cards styles
+.card {
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+// buttons styles
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  
+  &:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+  }
+}
+
+.btn-secondary {
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-light);
+}
