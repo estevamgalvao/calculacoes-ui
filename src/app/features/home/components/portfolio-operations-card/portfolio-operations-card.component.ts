@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule, DecimalPipe, CurrencyPipe, DatePipe } from '@angular/common';
+import { CommonModule, DecimalPipe, CurrencyPipe } from '@angular/common';
 import { Operation, OperationType } from '../../../../shared/models/operation';
 import { Asset } from '../../../../shared/models/asset';
 
 @Component({
   selector: 'app-portfolio-operations-card',
-  imports: [CommonModule, DecimalPipe, CurrencyPipe, DatePipe],
+  imports: [CommonModule, DecimalPipe, CurrencyPipe],
   templateUrl: './portfolio-operations-card.component.html',
   styleUrl: './portfolio-operations-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
