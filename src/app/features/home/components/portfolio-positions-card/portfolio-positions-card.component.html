@@ -1,0 +1,169 @@
+<div class="portfolio-positions-card">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="loading-text">Loading portfolio...</p>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!loading && portfolioSummary" class="portfolio-container">
+    <!-- Header Bar -->
+    <div class="portfolio-header">
+      <div class="header-title">
+        <i class="fas fa-briefcase header-icon"></i>
+        <h5 class="mb-0">Portfolio Summary</h5>
+      </div>
+
+      <div class="header-stats">
+        <div class="stat-item">
+          <span class="stat-label">Positions</span>
+          <span class="stat-value">{{ getPositionsCount() }}</span>
+        </div>
+
+        <div class="stat-divider"></div>
+
+        <div class="stat-item">
+          <span class="stat-label">Total Invested</span>
+          <span class="stat-value">
+            {{ toNumber(portfolioSummary.totalInvested) | currency: currency:'symbol':'1.2-2' }}
+          </span>
+        </div>
+
+        <div class="stat-divider"></div>
+
+        <div class="stat-item">
+          <span class="stat-label">Realized P&L</span>
+          <span 
+            class="stat-value"
+            [ngClass]="{
+              'text-profit': isProfitable(portfolioSummary.totalRealizedProfitLoss),
+              'text-loss': isLoss(portfolioSummary.totalRealizedProfitLoss)
+            }">
+            <i 
+              class="fas stat-icon"
+              [ngClass]="getProfitLossIcon(portfolioSummary.totalRealizedProfitLoss)">
+            </i>
+            {{ toNumber(portfolioSummary.totalRealizedProfitLoss) | currency: currency:'symbol':'1.2-2' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assets Grid -->
+    <div class="assets-grid">
+      <div 
+        *ngFor="let asset of portfolioSummary.positions; trackBy: trackByAssetCode"
+        class="asset-card"
+        (click)="onAssetClick(asset)"
+        role="button"
+        tabindex="0"
+        [attr.aria-label]="'View details for ' + asset.name"
+        (keydown.enter)="onAssetClick(asset)"
+        (keydown.space)="onAssetClick(asset)">
+        
+        <!-- Asset Header -->
+        <div class="asset-header">
+          <div class="asset-title-section">
+            <h6 class="asset-name" [title]="asset.name">{{ asset.name }}</h6>
+            <span class="asset-code badge bg-primary">{{ asset.tradingCode }}</span>
+          </div>
+          <i class="fas fa-chevron-right asset-arrow"></i>
+        </div>
+
+        <!-- Asset Institution -->
+        <div class="asset-institution">
+          <i class="fas fa-university institution-icon"></i>
+          <span class="institution-name">{{ asset.institution }}</span>
+          <span class="operations-badge badge bg-secondary">
+            <i class="fas fa-exchange-alt"></i>
+            {{ getOperationsCount(asset) }} ops
+          </span>
+        </div>
+
+        <!-- Asset Details Grid -->
+        <div class="asset-details">
+          <div class="detail-row">
+            <div class="detail-item">
+              <span class="detail-label">
+                <i class="fas fa-layer-group"></i>
+                Quantity
+              </span>
+              <span class="detail-value">{{ asset.quantity | number:'1.0-4' }}</span>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-label">
+                <i class="fas fa-tag"></i>
+                Avg. Price
+              </span>
+              <span class="detail-value">
+                {{ toNumber(asset.averagePrice) | currency: currency:'symbol':'1.2-2' }}
+              </span>
+            </div>
+          </div>
+
+          <div class="detail-row">
+            <div class="detail-item">
+              <span class="detail-label">
+                <i class="fas fa-wallet"></i>
+                Total Value
+              </span>
+              <span class="detail-value detail-value-highlight">
+                {{ toNumber(asset.totalValue) | currency: currency:'symbol':'1.2-2' }}
+              </span>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-label">
+                <i class="fas fa-chart-line"></i>
+                Realized P&L
+              </span>
+              <span 
+                class="detail-value"
+                [ngClass]="getProfitLossClass(asset.realizedProfitLoss)">
+                <i 
+                  class="fas detail-icon"
+                  [ngClass]="getProfitLossIcon(asset.realizedProfitLoss)">
+                </i>
+                {{ toNumber(asset.realizedProfitLoss) | currency: currency:'symbol':'1.2-2' }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profit/Loss Badge -->
+        <div class="asset-footer">
+          <span 
+            class="badge profit-loss-badge"
+            [ngClass]="{
+              'bg-profit': isProfitable(asset.realizedProfitLoss),
+              'bg-loss': isLoss(asset.realizedProfitLoss),
+              'bg-secondary': toNumber(asset.realizedProfitLoss) === 0
+            }">
+            <i 
+              class="fas"
+              [ngClass]="getProfitLossIcon(asset.realizedProfitLoss)">
+            </i>
+            {{ formatPercentage(asset.realizedProfitLoss, asset.totalValue) }}%
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="getPositionsCount() === 0" class="empty-state">
+      <i class="fas fa-inbox empty-icon"></i>
+      <h6 class="empty-title">No positions yet</h6>
+      <p class="empty-text">Start adding assets to your portfolio to see them here.</p>
+    </div>
+  </div>
+
+  <!-- No Data State -->
+  <div *ngIf="!loading && !portfolioSummary" class="no-data-state">
+    <i class="fas fa-exclamation-circle no-data-icon"></i>
+    <h6 class="no-data-title">No portfolio data available</h6>
+    <p class="no-data-text">Please load your portfolio to view positions.</p>
+  </div>
+</div>

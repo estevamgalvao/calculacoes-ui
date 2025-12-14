@@ -1,14 +1,8 @@
-<app-header-bar
-      [appTitle]="'CalculAções'"
-      [menuItems]="menuItems"
-      [activeMenuId]="activeMenuId"
-      [userName]="'João Silva'"
-      [showUserMenu]="true"
-      (menuItemClicked)="onMenuItemClicked($event)"
-      (userMenuClicked)="onUserMenuClicked()"
-      (logoClicked)="onLogoClicked()">
-    </app-header-bar>
-
-    <div class="container py-4">
-      <h1>Content goes here</h1>
+<div class="container py-4">
+      <app-portfolio-positions-card
+        [portfolioSummary]="portfolioData"
+        [currency]="'BRL'"
+        [loading]="isLoading"
+        (assetClicked)="onAssetClicked($event)">
+      </app-portfolio-positions-card>
     </div>
