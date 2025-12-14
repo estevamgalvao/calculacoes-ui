@@ -345,6 +345,37 @@
         }
       }
     }
+
+    // decided to remove the asset footer and move the profit-loss badge to the asset details section
+    // it made the card look cleaner and more compact
+    .profit-loss-badge {
+/*         font-size: 0.8rem;
+        font-weight: 600;
+        padding: 0.4rem 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem; */
+
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.25rem 0.5rem;
+        background-color: var(--color-primary-light) !important;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+
+        i {
+          font-size: 0.65rem;
+        }
+
+        &.bg-profit {
+          background-color: var(--color-profit) !important;
+        }
+
+        &.bg-loss {
+          background-color: var(--color-loss) !important;
+        }
+      }
   }
 
   // ============================================

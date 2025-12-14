@@ -80,6 +80,19 @@
             <i class="fas fa-exchange-alt"></i>
             {{ getOperationsCount(asset) }} ops
           </span>
+          <span 
+            class="badge profit-loss-badge"
+            [ngClass]="{
+              'bg-profit': isProfitable(asset.realizedProfitLoss),
+              'bg-loss': isLoss(asset.realizedProfitLoss),
+              'bg-secondary': toNumber(asset.realizedProfitLoss) === 0
+            }">
+            <i 
+              class="fas"
+              [ngClass]="getProfitLossIcon(asset.realizedProfitLoss)">
+            </i>
+            {{ formatPercentage(asset.realizedProfitLoss, asset.totalValue) }}%
+          </span>
         </div>
 
         <!-- Asset Details Grid -->
@@ -133,8 +146,9 @@
           </div>
         </div>
 
+        <!-- decided to remove the asset footer made it more compact -->
         <!-- Profit/Loss Badge -->
-        <div class="asset-footer">
+<!--         <div class="asset-footer">
           <span 
             class="badge profit-loss-badge"
             [ngClass]="{
@@ -148,7 +162,7 @@
             </i>
             {{ formatPercentage(asset.realizedProfitLoss, asset.totalValue) }}%
           </span>
-        </div>
+        </div> -->
       </div>
     </div>
 
