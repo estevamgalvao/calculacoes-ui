@@ -1,0 +1,104 @@
+
+<header class="header-bar">
+  <nav class="navbar">
+    <div class="container-fluid">
+      <!-- Logo / Brand -->
+      <div class="navbar-brand-wrapper">
+        <a 
+          class="navbar-brand" 
+          (click)="onLogoClick()"
+          role="button"
+          tabindex="0"
+          [attr.aria-label]="'Navigate to ' + appTitle + ' home'">
+          <i *ngIf="!appLogo" class="fas fa-chart-line brand-icon"></i>
+          <img *ngIf="appLogo" [src]="appLogo" [alt]="appTitle + ' logo'" class="brand-logo">
+          <span class="brand-text">{{ appTitle }}</span>
+        </a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="navbar-menu desktop-menu">
+        <ul class="menu-list">
+          <li 
+            *ngFor="let item of menuItems; trackBy: trackByItemId"
+            class="menu-item"
+            [class.active]="isActive(item.id)"
+            [class.disabled]="item.disabled">
+            <a 
+              class="menu-link"
+              (click)="onMenuItemClick(item)"
+              role="button"
+              tabindex="0"
+              [attr.aria-label]="item.label"
+              [attr.aria-current]="isActive(item.id) ? 'page' : null">
+              <i *ngIf="item.icon" class="fas {{ item.icon }} menu-icon"></i>
+              <span class="menu-label">{{ item.label }}</span>
+              <span *ngIf="item.badge && item.badge > 0" class="badge bg-danger menu-badge">
+                {{ item.badge > 99 ? '99+' : item.badge }}
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- User Menu -->
+      <div *ngIf="showUserMenu" class="navbar-user">
+        <button 
+          class="user-menu-btn"
+          (click)="onUserMenuClick()"
+          [attr.aria-label]="'User menu for ' + (userName || 'user')">
+          <div class="user-avatar">
+            <img *ngIf="userAvatar" [src]="userAvatar" [alt]="userName || 'User'" class="avatar-img">
+            <span *ngIf="!userAvatar" class="avatar-initials">{{ getUserInitials() }}</span>
+          </div>
+          <span *ngIf="userName" class="user-name d-none d-md-inline">{{ userName }}</span>
+          <i class="fas fa-chevron-down user-chevron d-none d-md-inline"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button 
+        class="mobile-menu-toggle"
+        (click)="toggleMobileMenu()"
+        [class.active]="isMobileMenuOpen"
+        aria-label="Toggle mobile menu"
+        [attr.aria-expanded]="isMobileMenuOpen">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div class="mobile-menu" [class.open]="isMobileMenuOpen">
+      <ul class="mobile-menu-list">
+        <li 
+          *ngFor="let item of menuItems; trackBy: trackByItemId"
+          class="mobile-menu-item"
+          [class.active]="isActive(item.id)"
+          [class.disabled]="item.disabled">
+          <a 
+            class="mobile-menu-link"
+            (click)="onMenuItemClick(item)"
+            role="button"
+            tabindex="0"
+            [attr.aria-label]="item.label">
+            <i *ngIf="item.icon" class="fas {{ item.icon }} mobile-menu-icon"></i>
+            <span class="mobile-menu-label">{{ item.label }}</span>
+            <span *ngIf="item.badge && item.badge > 0" class="badge bg-danger mobile-menu-badge">
+              {{ item.badge > 99 ? '99+' : item.badge }}
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overlay for mobile menu -->
+  <div 
+    *ngIf="isMobileMenuOpen" 
+    class="mobile-menu-overlay"
+    (click)="closeMobileMenu()"
+    aria-hidden="true">
+  </div>
+</header>
