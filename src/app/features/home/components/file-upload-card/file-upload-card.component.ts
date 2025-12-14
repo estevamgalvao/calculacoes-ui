@@ -24,8 +24,9 @@ export class FileUploadCardComponent {
 
   @Output() fileSelected = new EventEmitter<File>();
   @Output() fileRemoved = new EventEmitter<void>();
+  @Output() fileProcessed = new EventEmitter<void>();
 
-  onFileSelected(event: Event): void {
+  onFileSelect(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
@@ -35,13 +36,17 @@ export class FileUploadCardComponent {
     }
   }
 
+  onProcessFile(): void {
+    this.fileProcessed.emit();
+  }
+
   onRemoveFile(event: Event): void {
     event.stopPropagation();
     this.fileRemoved.emit();
   }
 
   formatFileSize(bytes: number): string {
-    return `${(bytes / (1024)).toFixed(2)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(4)} MB`;
   }
 
   getStatusBadgeClass(): string {

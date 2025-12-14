@@ -48,18 +48,46 @@
       </div>
 
       <!-- Upload Button -->
-      <div class="upload-button-wrapper mt-3">
+<!--       <div class="upload-button-wrapper mt-3">
         <label class="btn btn-primary w-100 mb-0" [class.disabled]="disabled">
-          <i class="fas" [ngClass]="uploadedFile ? 'fa-sync-alt' : 'fa-upload'"></i>
-          {{ uploadedFile ? 'Resend file' : 'Upload file' }}
-          <input 
+          <i class="fas" [ngClass]="uploadedFile ? 'fa-arrow-right-to-bracket' : 'fa-upload'"></i>
+          {{ uploadedFile ? 'Process file' : 'Upload file' }}
+          <input
             type="file" 
             class="d-none" 
             [accept]="acceptedFormats"
-            (change)="onFileSelected($event)"
+            (change)="uploadedFile ? onProcessFile() : onFileSelect($event)" 
             [disabled]="disabled">
         </label>
+      </div> -->
+
+      <div class="upload-button-wrapper mt-3">
+        <!-- Show upload button when no file is uploaded -->
+        <label 
+          *ngIf="!uploadedFile" 
+          class="btn btn-primary w-100 mb-0" 
+          [class.disabled]="disabled">
+          <i class="fas fa-upload"></i>
+          Upload file
+          <input
+            type="file" 
+            class="d-none" 
+            [accept]="acceptedFormats"
+            (change)="onFileSelect($event)" 
+            [disabled]="disabled">
+        </label>
+        
+        <!-- Show process button when file is uploaded -->
+        <label 
+          *ngIf="uploadedFile"
+          class="btn btn-primary w-100 mb-0"
+          [class.disabled]="disabled"
+          (click)="onProcessFile()">
+          <i class="fas fa-arrow-right-to-bracket"></i>
+          Process file
+      </label>
       </div>
+      
     </div>
   </div>
 </div>

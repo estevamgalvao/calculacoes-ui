@@ -1,9 +1,19 @@
+<app-header-bar
+      [appTitle]="'CalculAções'"
+      [menuItems]="menuItems"
+      [activeMenuId]="activeMenuId"
+      [userName]="'João Silva'"
+      [showUserMenu]="true"
+      (menuItemClicked)="onMenuItemClicked($event)"
+      (userMenuClicked)="onUserMenuClicked()"
+      (logoClicked)="onLogoClicked()">
+</app-header-bar>
 
 <div class="container py-4">
     <div class="row">
-        <div class="col">
-            <h1>Welcome to the Home Page</h1>
-            <p>This is the main landing page of the application.</p>
+        <div class="col text-center mb-2">
+            <h1>Calcule suas ações</h1>
+            <p>Processe seu portfólio de ações para o Imposto de Renda</p>
         </div>
     </div>
     <app-file-upload-card
@@ -12,6 +22,7 @@
       [maxSizeInMB]="5"
       [disabled]="isUploading"
       (fileSelected)="onFileSelected($event)"
-      (fileRemoved)="onFileRemoved()">
+      (fileRemoved)="onFileRemoved()"
+      (fileProcessed)="onProcessFile()">
     </app-file-upload-card>
 </div> 
