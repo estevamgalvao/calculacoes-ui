@@ -123,9 +123,7 @@
                 {{ toNumber(operation.price) | currency: currency:'symbol':'1.2-2' }}
               </span>
             </div>
-          </div>
 
-          <div class="detail-row">
             <div class="detail-item">
               <span class="detail-label">
                 <i class="fas fa-chart-bar"></i>
@@ -144,6 +142,26 @@
               </span>
             </div>
           </div>
+
+<!--           <div class="detail-row">
+            <div class="detail-item">
+              <span class="detail-label">
+                <i class="fas fa-chart-bar"></i>
+                Market Type
+              </span>
+              <span class="detail-value">{{ operation.marketType }}</span>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-label">
+                <i class="fas fa-calculator"></i>
+                Total
+              </span>
+              <span class="detail-value detail-value-highlight">
+                {{ calculateOperationTotal(operation) | currency: currency:'symbol':'1.2-2' }}
+              </span>
+            </div>
+          </div> -->
         </div>
       </div>
     </div>
