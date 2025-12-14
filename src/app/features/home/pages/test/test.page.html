@@ -1,8 +1,20 @@
 <div class="container py-4">
+      <!-- Show positions card when no asset is selected -->
       <app-portfolio-positions-card
+        *ngIf="!selectedAsset"
         [portfolioSummary]="portfolioData"
         [currency]="'BRL'"
         [loading]="isLoading"
         (assetClicked)="onAssetClicked($event)">
       </app-portfolio-positions-card>
+
+      <!-- Show operations card when an asset is selected -->
+      <app-portfolio-operations-card
+        *ngIf="selectedAsset"
+        [asset]="selectedAsset"
+        [currency]="'BRL'"
+        [loading]="isLoadingOperations"
+        (operationClicked)="onOperationClicked($event)"
+        (backClicked)="onBackClicked()">
+      </app-portfolio-operations-card>
     </div>

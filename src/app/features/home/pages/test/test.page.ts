@@ -3,17 +3,22 @@ import { HeaderBarComponent, MenuItem } from '../../components/header-bar/header
 import { PortfolioPositionsCardComponent } from '../../components/portfolio-positions-card/portfolio-positions-card.component';
 import { PortfolioSummary } from '../../../../shared/models/portfolio-summary';
 import { Asset } from '../../../../shared/models/asset';
+import { PortfolioOperationsCardComponent } from '../../components/portfolio-operations-card/portfolio-operations-card.component';
+import { Operation } from '../../../../shared/models/operation';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-test',
-  imports: [PortfolioPositionsCardComponent],
+  imports: [PortfolioPositionsCardComponent, PortfolioOperationsCardComponent, CommonModule],
   templateUrl: './test.page.html',
   styleUrl: './test.page.scss',
 })
 export class TestPage {
-  isLoading = false;
+isLoading = false;
+  isLoadingOperations = false;
+  selectedAsset: Asset | null = null;
 
-  portfolioData: PortfolioSummary = {
+  portfolioData = {
     totalInvested: '50000.00',
     totalRealizedProfitLoss: '5420.50',
     positions: [
@@ -29,29 +34,26 @@ export class TestPage {
           {
             date: '2024-01-15',
             assetCode: 'PETR4',
-            type: 'BUY',
-            marketType: 'VISTA',
-            quantity: 100,
-            price: '28.50'
-          }
-        ]
-      },
-      {
-        name: 'Vale ON',
-        tradingCode: 'VALE3',
-        institution: 'XP Investimentos',
-        quantity: 50,
-        averagePrice: '65.20',
-        totalValue: '3400.00',
-        realizedProfitLoss: '-140.00',
-        operations: [
-          {
-            date: '2024-02-10',
-            assetCode: 'VALE3',
-            type: 'BUY',
+            type: 'BUY' as const,
             marketType: 'VISTA',
             quantity: 50,
-            price: '65.20'
+            price: '27.80'
+          },
+          {
+            date: '2024-02-20',
+            assetCode: 'PETR4',
+            type: 'BUY' as const,
+            marketType: 'VISTA',
+            quantity: 50,
+            price: '29.20'
+          },
+          {
+            date: '2024-03-10',
+            assetCode: 'PETR4',
+            type: 'SELL' as const,
+            marketType: 'VISTA',
+            quantity: 20,
+            price: '32.00'
           }
         ]
       }
@@ -60,7 +62,15 @@ export class TestPage {
 
   onAssetClicked(asset: Asset): void {
     console.log('Asset clicked:', asset);
-    console.log('Operations:', asset.operations);
-    // Navigate to asset details or open modal
+    this.selectedAsset = asset;
+  }
+
+  onOperationClicked(operation: Operation): void {
+    console.log('Operation clicked:', operation);
+    // Open modal with operation details or navigate
+  }
+
+  onBackClicked(): void {
+    this.selectedAsset = null;
   }
 }
