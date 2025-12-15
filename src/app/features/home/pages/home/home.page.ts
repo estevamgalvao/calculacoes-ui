@@ -1,12 +1,20 @@
 import { Component } from '@angular/core';
 import { FileUploadCardComponent, UploadedFile } from '../../components/file-upload-card/file-upload-card.component';
 import { HeaderBarComponent, MenuItem } from '../../components/header-bar/header-bar.component';
+import { Asset } from '../../../../shared/models/asset';
+import { Operation } from '../../../../shared/models/operation';
+import { PortfolioOperationsCardComponent } from '../../components/portfolio-operations-card/portfolio-operations-card.component';
+import { PortfolioPositionsCardComponent } from '../../components/portfolio-positions-card/portfolio-positions-card.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   imports: [
     FileUploadCardComponent,
-    HeaderBarComponent
+    HeaderBarComponent,
+    PortfolioPositionsCardComponent,
+    PortfolioOperationsCardComponent,
+    CommonModule
   ],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
@@ -67,6 +75,7 @@ export class HomePage {
   currentFile: File | null = null;
   currentFileMetadata: UploadedFile | null = null;
   isUploading = false;
+  showUploadComponent = true;
 
   onFileSelected(file: File): void {
     console.log('File selected:', file);
@@ -94,7 +103,16 @@ export class HomePage {
   }
 
   onProcessFile(): void {
+    // Enviar ao backend para processar o arquivo
+    // E devolver os dados do portfólio
     console.log('Processing file:', this.currentFile);
+    this.showUploadComponent = false;
+
+    this.isLoadingPositions = true;
+    // Assim que fossem recebidos os dados, atualizar o estado dos componentes de portfólio
+    this.isLoadingPositions = false;
+    
+    this.showPositionsCard = true;
   }
 
   onFileRemoved(): void {
@@ -102,6 +120,81 @@ export class HomePage {
     this.currentFileMetadata = null;
   }
 
+  /* Properties for Portfolios Components */
+  isLoadingPositions = false;
+  isLoadingOperations = false;
+  selectedAsset: Asset | null = null;
+  showPositionsCard = false;
+  showOperationsCard = false;
 
+  portfolioData = {
+    totalInvested: '50000.00',
+    totalRealizedProfitLoss: '5420.50',
+    positions: [
+      {
+        name: 'Petrobras PN',
+        tradingCode: 'PETR4',
+        institution: 'Clear Corretora',
+        quantity: 100,
+        averagePrice: '28.50',
+        totalValue: '3200.00',
+        realizedProfitLoss: '350.00',
+        operations: [
+          {
+            date: '2024-01-15',
+            assetCode: 'PETR4',
+            type: 'BUY' as const,
+            marketType: 'VISTA',
+            quantity: 50,
+            price: '27.80'
+          },
+          {
+            date: '2024-02-20',
+            assetCode: 'PETR4',
+            type: 'BUY' as const,
+            marketType: 'VISTA',
+            quantity: 50,
+            price: '29.20'
+          },
+          {
+            date: '2024-03-10',
+            assetCode: 'PETR4',
+            type: 'SELL' as const,
+            marketType: 'VISTA',
+            quantity: 20,
+            price: '32.00'
+          }
+        ]
+      }
+    ]
+  };
+
+  onAssetClicked(asset: Asset): void {
+    console.log('Asset clicked:', asset);
+    this.selectedAsset = asset;
+
+    this.isLoadingOperations = true;
+    // Simulate loading operations
+    this.isLoadingOperations = false;
+    
+    this.showPositionsCard = false;
+    this.showOperationsCard = true;
+  }
+
+  onCloseClicked(): void {
+    //nular portfolio
+    this.showPositionsCard = false;
+    this.showUploadComponent = true;
+  }
+
+  onOperationClicked(operation: Operation): void {
+    console.log('Operation clicked:', operation);
+  }
+
+  onBackClicked(): void {
+    this.selectedAsset = null;
+    this.showOperationsCard = false;
+    this.showPositionsCard = true;
+  }
 
 }

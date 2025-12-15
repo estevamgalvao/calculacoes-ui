@@ -10,14 +10,19 @@ import { PortfolioSummary } from '../../../../shared/models/portfolio-summary';
   styleUrl: './portfolio-positions-card.component.scss',
 })
 export class PortfolioPositionsCardComponent {
-@Input() portfolioSummary: PortfolioSummary | null = null;
+  @Input() portfolioSummary: PortfolioSummary | null = null;
   @Input() currency: string = 'BRL';
   @Input() loading: boolean = false;
 
   @Output() assetClicked = new EventEmitter<Asset>();
+  @Output() closeClicked = new EventEmitter<void>();
 
   onAssetClick(asset: Asset): void {
     this.assetClicked.emit(asset);
+  }
+
+  onCloseClick(): void {
+    this.closeClicked.emit();
   }
 
   getPositionsCount(): number {

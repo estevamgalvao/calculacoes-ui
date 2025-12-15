@@ -17,12 +17,33 @@
         </div>
     </div>
     <app-file-upload-card
-      [uploadedFile]="currentFileMetadata"
-      [acceptedFormats]="'.pdf,.doc,.docx,.xlsx,.csv'"
-      [maxSizeInMB]="5"
-      [disabled]="isUploading"
-      (fileSelected)="onFileSelected($event)"
-      (fileRemoved)="onFileRemoved()"
-      (fileProcessed)="onProcessFile()">
+        *ngIf="showUploadComponent"
+        [uploadedFile]="currentFileMetadata"
+        [acceptedFormats]="'.pdf,.doc,.docx,.xlsx,.csv'"
+        [maxSizeInMB]="5"
+        [disabled]="isUploading"
+        (fileSelected)="onFileSelected($event)"
+        (fileRemoved)="onFileRemoved()"
+        (fileProcessed)="onProcessFile()">
     </app-file-upload-card>
+
+    <!-- Show positions card when no asset is selected -->
+    <app-portfolio-positions-card
+        *ngIf="showPositionsCard"
+        [portfolioSummary]="portfolioData"
+        [currency]="'BRL'"
+        [loading]="isLoadingPositions"
+        (assetClicked)="onAssetClicked($event)"
+        (closeClicked)="onCloseClicked()">
+    </app-portfolio-positions-card>
+
+    <!-- Show operations card when an asset is selected -->
+    <app-portfolio-operations-card
+        *ngIf="showOperationsCard"
+        [asset]="selectedAsset"
+        [currency]="'BRL'"
+        [loading]="isLoadingOperations"
+        (operationClicked)="onOperationClicked($event)"
+        (backClicked)="onBackClicked()">
+    </app-portfolio-operations-card>
 </div> 

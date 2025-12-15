@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './test.page.scss',
 })
 export class TestPage {
-isLoading = false;
+  isLoading = false;
   isLoadingOperations = false;
   selectedAsset: Asset | null = null;
 
