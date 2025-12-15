@@ -22,6 +22,7 @@ export class PortfolioPositionsCardComponent {
   }
 
   onCloseClick(): void {
+    console.log('Close button clicked');
     this.closeClicked.emit();
   }
 

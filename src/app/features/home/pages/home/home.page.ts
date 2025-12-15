@@ -182,6 +182,7 @@ export class HomePage {
   }
 
   onCloseClicked(): void {
+    console.log('Close clicked, returning to file upload');
     //nular portfolio
     this.showPositionsCard = false;
     this.showUploadComponent = true;

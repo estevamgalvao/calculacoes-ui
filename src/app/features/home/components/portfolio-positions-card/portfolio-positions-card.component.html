@@ -11,10 +11,21 @@
   <div *ngIf="!loading && portfolioSummary" class="portfolio-container">
     <!-- Header Bar -->
     <div class="portfolio-header">
-      <div class="header-title">
-        <i class="fas fa-briefcase header-icon"></i>
-        <h5 class="mb-0">Portfolio Summary</h5>
+
+      <div class="header-left">
+        <button 
+          class="close-button"
+          (click)="onCloseClick()"
+          aria-label="Close portfolio view">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="header-title">
+          <i class="fas fa-briefcase header-icon"></i>
+          <h5 class="mb-0">Portfolio Summary</h5>
+        </div>
       </div>
+
+
 
       <div class="header-stats">
         <div class="stat-item">
