@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { CommonModule, DecimalPipe, CurrencyPipe } from '@angular/common';
 import { Asset } from '../../../../shared/models/asset';
 import { PortfolioSummary } from '../../../../shared/models/portfolio-summary';
@@ -16,6 +16,10 @@ export class PortfolioPositionsCardComponent {
 
   @Output() assetClicked = new EventEmitter<Asset>();
   @Output() closeClicked = new EventEmitter<void>();
+
+/*   ngOnChanges(changes: SimpleChanges): void {
+    console.log('[PortfolioPositionsCard] ngOnChanges', changes);
+  } */
 
   onAssetClick(asset: Asset): void {
     this.assetClicked.emit(asset);

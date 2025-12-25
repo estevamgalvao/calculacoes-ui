@@ -30,7 +30,7 @@
     <!-- Show positions card when no asset is selected -->
     <app-portfolio-positions-card
         *ngIf="showPositionsCard"
-        [portfolioSummary]="portfolioData"
+        [portfolioSummary]="summary"
         [currency]="'BRL'"
         [loading]="isLoadingPositions"
         (assetClicked)="onAssetClicked($event)"
