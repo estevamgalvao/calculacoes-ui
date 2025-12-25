@@ -102,7 +102,8 @@
               class="fas"
               [ngClass]="getProfitLossIcon(asset.realizedProfitLoss)">
             </i>
-            {{ formatPercentage(asset.realizedProfitLoss, asset.totalValue) }}%
+            <!-- {{ formatPercentage(asset.realizedProfitLoss, asset.totalValue) }}% -->
+              {{ toNumber(asset.realizedProfitLoss) | currency: currency:'symbol':'1.2-2' }}
           </span>
         </div>
 
@@ -126,9 +127,19 @@
                 {{ toNumber(asset.averagePrice) | currency: currency:'symbol':'1.2-2' }}
               </span>
             </div>
+
+            <div class="detail-item">
+              <span class="detail-label">
+                <i class="fas fa-wallet"></i>
+                Total Value
+              </span>
+              <span class="detail-value detail-value-highlight">
+                {{ toNumber(asset.totalValue) | currency: currency:'symbol':'1.2-2' }}
+              </span>
+            </div>
           </div>
 
-          <div class="detail-row">
+<!--           <div class="detail-row">
             <div class="detail-item">
               <span class="detail-label">
                 <i class="fas fa-wallet"></i>
@@ -154,7 +165,7 @@
                 {{ toNumber(asset.realizedProfitLoss) | currency: currency:'symbol':'1.2-2' }}
               </span>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <!-- decided to remove the asset footer made it more compact -->
