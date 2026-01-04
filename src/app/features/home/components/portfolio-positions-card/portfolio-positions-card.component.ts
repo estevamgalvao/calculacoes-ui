@@ -61,7 +61,9 @@ export class PortfolioPositionsCardComponent {
     return 'fa-minus';
   }
 
-  formatPercentage(profitLoss: string, totalValue: string): string {
+  // not using anymore -> na verdade o calculo estava errado e esse cálculo é complexto, precisa ir operação a operação... 
+  // not worth it -> removi e adaptei o componente
+/*   formatPercentage(profitLoss: string, totalValue: string): string {
     const plNum = this.toNumber(profitLoss);
     const tvNum = this.toNumber(totalValue);
     
@@ -73,7 +75,7 @@ export class PortfolioPositionsCardComponent {
     
     const percentage = (plNum / invested) * 100;
     return Math.abs(percentage).toFixed(2);
-  }
+  } */
 
   getOperationsCount(asset: Asset): number {
     return asset.operations?.length || 0;
