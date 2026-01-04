@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../../shared/models/api-response';
 import { PortfolioSummary } from '../../shared/models/portfolio-summary';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root', // torna o serviço disponível em toda a aplicação
 })
 export class PortfolioApiService {
   
-  private readonly baseUrl = 'http://localhost:8080/api/portfolio';
+  private readonly baseUrl = environment.apiBaseUrl;
+  private readonly portfolioUrl = this.baseUrl + '/portfolio';
 
   constructor(private http: HttpClient) {}
 
@@ -24,7 +26,7 @@ export class PortfolioApiService {
     formData.append('file', file); // nome "file" precisa bater com @RequestParam("file") do back - mt importante lembrar  
 
     return this.http.post<ApiResponse<PortfolioSummary>>(
-      `${this.baseUrl}/upload`,
+      `${this.portfolioUrl}/upload`,
       formData
     );
   }
