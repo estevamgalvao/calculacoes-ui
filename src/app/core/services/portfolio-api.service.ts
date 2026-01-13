@@ -6,7 +6,7 @@ import { PortfolioSummary } from '../../shared/models/portfolio-summary';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root', // torna o serviço disponível em toda a aplicação
+  providedIn: 'root', // makes the service available throughout the application
 })
 export class PortfolioApiService {
   
@@ -16,14 +16,14 @@ export class PortfolioApiService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Envia o arquivo CSV para o backend e retorna o ApiResponse<PortfolioSummary>.
+   * Sends the CSV file to the backend and returns ApiResponse<PortfolioSummary>.
    *
-   * Repare que o retorno é Observable<ApiResponse<PortfolioSummary>>.
-   * A chamada HTTP é sempre assíncrona.
+   * Note that the return type is Observable<ApiResponse<PortfolioSummary>>.
+   * The HTTP call is always asynchronous.
    */
   uploadCsv(file: File): Observable<ApiResponse<PortfolioSummary>> {
     const formData = new FormData();
-    formData.append('file', file); // nome "file" precisa bater com @RequestParam("file") do back - mt importante lembrar  
+    formData.append('file', file); // name "file" must match @RequestParam("file") on the backend - very important to remember  
 
     return this.http.post<ApiResponse<PortfolioSummary>>(
       `${this.portfolioUrl}/upload`,

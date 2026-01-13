@@ -64,18 +64,15 @@ export class HomePage {
   onMenuItemClicked(item: MenuItem): void {
     console.log('Menu item clicked:', item);
     this.activeMenuId = item.id;
-    // Navigate or perform action
   }
 
   onUserMenuClicked(): void {
     console.log('User menu clicked');
-    // Open user dropdown or navigate to profile
   }
 
   onLogoClicked(): void {
     console.log('Logo clicked');
     this.activeMenuId = 'home';
-    // Navigate to home
   }
 
 
@@ -152,15 +149,8 @@ export class HomePage {
         this.cdr.markForCheck();
       },
     });
-/*     this.isLoadingPositions = false; */
-    // Enviar ao backend para processar o arquivo
-    // E devolver os dados do portfólio
+
     console.log('Processing file:', this.currentFile);
-
-
-/*     this.isLoadingPositions = true; */
-    // Assim que fossem recebidos os dados, atualizar o estado dos componentes de portfólio
-/*     this.isLoadingPositions = false; */
     
     this.showPositionsCard = true;
   }
@@ -227,7 +217,7 @@ export class HomePage {
 
   onCloseClicked(): void {
     console.log('Close clicked, returning to file upload');
-    //nular portfolio
+
     this.showPositionsCard = false;
     this.showUploadComponent = true;
   }

@@ -3,14 +3,14 @@ FROM node:22-alpine AS build
 
 WORKDIR /app
 
-# Copia apenas arquivos de dependência (cache)
+# Copy package.json and package-lock.json
 COPY package*.json ./
 RUN npm install
 
-# Copia o restante do projeto
+# Copy all project files
 COPY . .
 
-# Build SSR de produção
+# Build production SSR
 RUN npm run build -- --configuration production
 
 # Stage 2: Runtime (SSR)
@@ -18,11 +18,11 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-# Copia apenas o build final
+# Copy only the final build
 COPY --from=build /app/dist/calculacoes-ui ./dist
 
-# Porta padrão do Angular SSR
+# Default port for Angular SSR
 EXPOSE 4000
 
-# Comando que sobe o servidor SSR
+# Command to start the SSR server
 CMD ["node", "dist/server/server.mjs"]

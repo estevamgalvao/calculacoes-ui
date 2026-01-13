@@ -17,9 +17,6 @@ export class PortfolioPositionsCardComponent {
   @Output() assetClicked = new EventEmitter<Asset>();
   @Output() closeClicked = new EventEmitter<void>();
 
-/*   ngOnChanges(changes: SimpleChanges): void {
-    console.log('[PortfolioPositionsCard] ngOnChanges', changes);
-  } */
 
   onAssetClick(asset: Asset): void {
     this.assetClicked.emit(asset);
@@ -61,8 +58,8 @@ export class PortfolioPositionsCardComponent {
     return 'fa-minus';
   }
 
-  // not using anymore -> na verdade o calculo estava errado e esse cálculo é complexto, precisa ir operação a operação... 
-  // not worth it -> removi e adaptei o componente
+  // not using anymore -> actually, the calculation was wrong and this calculation is complex, it needs to go operation by operation...
+  // not worth it -> removed and updated the component to not use it
 /*   formatPercentage(profitLoss: string, totalValue: string): string {
     const plNum = this.toNumber(profitLoss);
     const tvNum = this.toNumber(totalValue);
