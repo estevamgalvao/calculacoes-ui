@@ -5,7 +5,7 @@
       <div class="header-content">
         <i class="fas fa-question-circle header-icon"></i>
         <div class="header-text">
-          <h4 class="mb-0">Central de Ajuda</h4>
+          <h5 class="mb-0">Central de Ajuda</h5>
           <p class="header-subtitle">Tudo que você precisa saber para usar o CalculAções</p>
         </div>
       </div>
@@ -30,10 +30,8 @@
           (keydown.space)="toggleSection(section.id)">
           
           <div class="section-title-wrapper">
-            <div class="section-icon-wrapper">
-              <i class="fas section-icon" [ngClass]="section.icon"></i>
-            </div>
-            <h5 class="section-title">{{ section.title }}</h5>
+            <i class="fas section-icon" [ngClass]="section.icon"></i>
+            <h6 class="section-title">{{ section.title }}</h6>
           </div>
 
           <i 
@@ -55,7 +53,7 @@
             <!-- Items List -->
             <ul *ngIf="section.items && section.items.length > 0" class="items-list">
               <li *ngFor="let item of section.items" class="list-item">
-                <i class="fas fa-check-circle item-icon"></i>
+                <span class="bullet">•</span>
                 <span>{{ item }}</span>
               </li>
             </ul>
@@ -63,8 +61,7 @@
             <!-- Example Code Block -->
             <div *ngIf="section.example" class="example-block">
               <div class="example-header">
-                <i class="fas fa-code"></i>
-                <span>Exemplo de formato:</span>
+                <span>Exemplo de formato</span>
               </div>
               <pre class="example-code">{{ section.example }}</pre>
             </div>
@@ -76,20 +73,19 @@
     <!-- Quick Tips -->
     <div class="quick-tips">
       <div class="tips-header">
-        <i class="fas fa-lightbulb"></i>
-        <h6>Dicas Rápidas</h6>
+        <span>Dicas Rápidas</span>
       </div>
       <div class="tips-content">
         <div class="tip-item">
-          <span class="tip-badge">1</span>
+          <span class="tip-number">1.</span>
           <p>Baixe seu extrato de operações diretamente do site da B3</p>
         </div>
         <div class="tip-item">
-          <span class="tip-badge">2</span>
+          <span class="tip-number">2.</span>
           <p>Adicione as posições do ano anterior manualmente no início do arquivo</p>
         </div>
         <div class="tip-item">
-          <span class="tip-badge">3</span>
+          <span class="tip-number">3.</span>
           <p>Verifique se o arquivo está em formato CSV antes de enviar</p>
         </div>
       </div>
@@ -97,10 +93,7 @@
 
     <!-- Footer Actions -->
     <div class="help-footer">
-      <div class="footer-info">
-        <i class="fas fa-envelope"></i>
-        <span>Ainda tem dúvidas? Entre em contato conosco</span>
-      </div>
+      <span>Ainda tem dúvidas? Entre em contato conosco</span>
     </div>
   </div>
 </div>
