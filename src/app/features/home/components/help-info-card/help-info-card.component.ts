@@ -53,7 +53,7 @@ export class HelpInfoCardComponent {
       icon: 'fa-exclamation-triangle',
       content: 'Para garantir o melhor desempenho e processamento correto, observe os seguintes limites:',
       items: [
-        'Tamanho máximo do arquivo: 5 MB',
+        'Tamanho máximo do arquivo: 10 MB',
         'Formato aceito: apenas CSV',
         'A B3 exibe apenas compras e vendas do ano atual',
         'Você deve adicionar manualmente as posições do ano anterior',
