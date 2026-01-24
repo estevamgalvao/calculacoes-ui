@@ -30,10 +30,6 @@ export class HeaderBarComponent {
 
   isMobileMenuOpen = false;
 
-  ngOnInit(): void {
-    console.log('HeaderBarComponent initialized with menu items:', this.menuItems);
-  }
-
   onMenuItemClick(item: MenuItem): void {
     if (!item.disabled) {
       this.menuItemClicked.emit(item);
