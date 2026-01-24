@@ -9,7 +9,7 @@
       (logoClicked)="onLogoClicked()">
 </app-header-bar>
 
-<div class="container py-4">
+<div class="container py-4" *ngIf="activeMenuId === 'home'">
     <div class="row">
         <div class="col text-center mb-2">
             <h1>Calcule suas ações</h1>
@@ -47,3 +47,7 @@
         (backClicked)="onBackClicked()">
     </app-portfolio-operations-card>
 </div> 
+
+<div class="container py-4" *ngIf="activeMenuId === 'help'">
+    <app-help-info-card></app-help-info-card>
+</div>

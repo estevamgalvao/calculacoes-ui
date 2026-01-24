@@ -1,0 +1,106 @@
+<div class="help-info-card">
+  <div class="help-container">
+    <!-- Header -->
+    <div class="help-header">
+      <div class="header-content">
+        <i class="fas fa-question-circle header-icon"></i>
+        <div class="header-text">
+          <h4 class="mb-0">Central de Ajuda</h4>
+          <p class="header-subtitle">Tudo que você precisa saber para usar o CalculAções</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help Sections -->
+    <div class="help-sections">
+      <div 
+        *ngFor="let section of helpSections; trackBy: trackBySectionId"
+        class="help-section"
+        [class.expanded]="section.isExpanded">
+        
+        <!-- Section Header -->
+        <div 
+          class="section-header"
+          (click)="toggleSection(section.id)"
+          role="button"
+          tabindex="0"
+          [attr.aria-expanded]="section.isExpanded"
+          [attr.aria-controls]="section.id + '-content'"
+          (keydown.enter)="toggleSection(section.id)"
+          (keydown.space)="toggleSection(section.id)">
+          
+          <div class="section-title-wrapper">
+            <div class="section-icon-wrapper">
+              <i class="fas section-icon" [ngClass]="section.icon"></i>
+            </div>
+            <h5 class="section-title">{{ section.title }}</h5>
+          </div>
+
+          <i 
+            class="fas fa-chevron-down toggle-icon"
+            [class.rotated]="section.isExpanded">
+          </i>
+        </div>
+
+        <!-- Section Content -->
+        <div 
+          class="section-content"
+          [id]="section.id + '-content'"
+          [class.show]="section.isExpanded">
+          
+          <div class="content-wrapper">
+            <!-- Description -->
+            <p class="section-description">{{ section.content }}</p>
+
+            <!-- Items List -->
+            <ul *ngIf="section.items && section.items.length > 0" class="items-list">
+              <li *ngFor="let item of section.items" class="list-item">
+                <i class="fas fa-check-circle item-icon"></i>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+
+            <!-- Example Code Block -->
+            <div *ngIf="section.example" class="example-block">
+              <div class="example-header">
+                <i class="fas fa-code"></i>
+                <span>Exemplo de formato:</span>
+              </div>
+              <pre class="example-code">{{ section.example }}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Tips -->
+    <div class="quick-tips">
+      <div class="tips-header">
+        <i class="fas fa-lightbulb"></i>
+        <h6>Dicas Rápidas</h6>
+      </div>
+      <div class="tips-content">
+        <div class="tip-item">
+          <span class="tip-badge">1</span>
+          <p>Baixe seu extrato de operações diretamente do site da B3</p>
+        </div>
+        <div class="tip-item">
+          <span class="tip-badge">2</span>
+          <p>Adicione as posições do ano anterior manualmente no início do arquivo</p>
+        </div>
+        <div class="tip-item">
+          <span class="tip-badge">3</span>
+          <p>Verifique se o arquivo está em formato CSV antes de enviar</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Actions -->
+    <div class="help-footer">
+      <div class="footer-info">
+        <i class="fas fa-envelope"></i>
+        <span>Ainda tem dúvidas? Entre em contato conosco</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { PortfolioApiService } from '../../../../core/services/portfolio-api.service';
 import { ApiResponse } from '../../../../shared/models/api-response';
 import { PortfolioSummary } from '../../../../shared/models/portfolio-summary';
+import { HelpInfoCardComponent } from '../../components/help-info-card/help-info-card.component';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ import { PortfolioSummary } from '../../../../shared/models/portfolio-summary';
     HeaderBarComponent,
     PortfolioPositionsCardComponent,
     PortfolioOperationsCardComponent,
+    HelpInfoCardComponent,
     CommonModule
   ],
   templateUrl: './home.page.html',
@@ -39,6 +41,11 @@ export class HomePage {
       icon: 'fa-home'
     },
     {
+      id: 'help',
+      label: 'Ajuda',
+      icon: 'fa-circle-question'
+    }
+/*     {
       id: 'portfolio',
       label: 'Portfolio',
       icon: 'fa-briefcase'
@@ -58,7 +65,7 @@ export class HomePage {
       id: 'settings',
       label: 'Settings',
       icon: 'fa-cog'
-    }
+    } */
   ];
 
   onMenuItemClicked(item: MenuItem): void {
