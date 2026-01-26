@@ -60,3 +60,44 @@ body {
     background-color: var(--color-info) !important;
   }
 }
+.toast-compact.p-toast {
+  right: 1rem !important;   /* here for keeping the toast close to the right - adjust if want it more close or further */
+  left: auto !important;
+  width: auto !important;   /* It doesn't "pull" the width of the container. */
+}
+
+.toast-compact {
+
+  .p-toast-message {
+    padding: 0.2rem 0.5rem;
+    width: 20rem;        /* size of the width of the toast... 16rem, 18rem, 20rem... */
+    max-width: 90vw;     /* avoid crash on small screens */
+  }
+
+  .p-toast-message-content {
+    gap: 0.5rem;
+  }
+
+  .p-toast-message-icon {
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .p-toast-summary {
+    font-size: 0.9rem;
+    line-height: 1.1;
+  }
+
+  .p-toast-detail {
+    font-size: 0.85rem;
+    line-height: 1.1;
+    color: #000 !important;
+  }
+  /* guarantees that the text breaks and doesn't "push" the width */
+  .p-toast-summary,
+  .p-toast-detail {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}

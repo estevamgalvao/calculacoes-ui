@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject  } from '@angular/core';
 import { FileUploadCardComponent, UploadedFile } from '../../components/file-upload-card/file-upload-card.component';
 import { HeaderBarComponent, MenuItem } from '../../components/header-bar/header-bar.component';
 import { Asset } from '../../../../shared/models/asset';
@@ -10,6 +10,8 @@ import { PortfolioApiService } from '../../../../core/services/portfolio-api.ser
 import { ApiResponse } from '../../../../shared/models/api-response';
 import { PortfolioSummary } from '../../../../shared/models/portfolio-summary';
 import { HelpInfoCardComponent } from '../../components/help-info-card/help-info-card.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +21,8 @@ import { HelpInfoCardComponent } from '../../components/help-info-card/help-info
     PortfolioPositionsCardComponent,
     PortfolioOperationsCardComponent,
     HelpInfoCardComponent,
-    CommonModule
+    CommonModule,
+    ToastModule
   ],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
@@ -30,6 +33,17 @@ export class HomePage {
     private portfolioApi: PortfolioApiService,
     private cdr: ChangeDetectorRef
   ) {}
+
+  private messageService = inject(MessageService);
+
+  /* Methods for calling toast component */
+  showToastError(errorMsg?: string | null) {
+    this.messageService.add({ 
+      severity: 'error', 
+      summary: 'Erro', 
+      detail: errorMsg || 'Ocorreu um erro ao processar a operação.' 
+    });
+  }
 
   /* Properties for HeaderBarComponent */
   activeMenuId: string = 'home';
@@ -45,27 +59,6 @@ export class HomePage {
       label: 'Ajuda',
       icon: 'fa-circle-question'
     }
-/*     {
-      id: 'portfolio',
-      label: 'Portfolio',
-      icon: 'fa-briefcase'
-    },
-    {
-      id: 'transactions',
-      label: 'Transactions',
-      icon: 'fa-exchange-alt',
-      badge: 3
-    },
-    {
-      id: 'reports',
-      label: 'Reports',
-      icon: 'fa-chart-bar'
-    },
-    {
-      id: 'settings',
-      label: 'Settings',
-      icon: 'fa-cog'
-    } */
   ];
 
   onMenuItemClicked(item: MenuItem): void {
@@ -142,6 +135,7 @@ export class HomePage {
           this.summary = res.data;
         } else {
           this.errorMessage = res.message || 'Erro ao processar o arquivo.';
+          this.showToastError(this.errorMessage);
         }
         console.log('Summary after processing:', this.summary);
         this.isLoadingPositions = false;
@@ -152,6 +146,7 @@ export class HomePage {
         console.error(err);
         this.errorMessage =
           err?.error?.message || 'Erro de comunicação com o servidor.';
+        this.showToastError(this.errorMessage);
         this.isLoadingPositions = false;
         this.cdr.markForCheck();
       },
