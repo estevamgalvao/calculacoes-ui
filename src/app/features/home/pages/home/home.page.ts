@@ -167,49 +167,6 @@ export class HomePage {
     this.currentFileMetadata = null;
   }
 
-
-  portfolioData = {
-    totalInvested: '50000.00',
-    totalRealizedProfitLoss: '5420.50',
-    positions: [
-      {
-        name: 'Petrobras PN',
-        tradingCode: 'PETR4',
-        institution: 'Clear Corretora',
-        quantity: 100,
-        averagePrice: '28.50',
-        totalValue: '3200.00',
-        realizedProfitLoss: '350.00',
-        operations: [
-          {
-            date: '2024-01-15',
-            assetCode: 'PETR4',
-            type: 'BUY' as const,
-            marketType: 'VISTA',
-            quantity: 50,
-            price: '27.80'
-          },
-          {
-            date: '2024-02-20',
-            assetCode: 'PETR4',
-            type: 'BUY' as const,
-            marketType: 'VISTA',
-            quantity: 50,
-            price: '29.20'
-          },
-          {
-            date: '2024-03-10',
-            assetCode: 'PETR4',
-            type: 'SELL' as const,
-            marketType: 'VISTA',
-            quantity: 20,
-            price: '32.00'
-          }
-        ]
-      }
-    ]
-  };
-
   onAssetClicked(asset: Asset): void {
     console.log('Asset clicked:', asset);
     this.selectedAsset = asset;
