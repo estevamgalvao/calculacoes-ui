@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, DecimalPipe, CurrencyPipe } from '@angular/common';
-import { Operation, OperationType } from '../../../../shared/models/operation';
+import { Operation, OperationType, getOperationTypeTranslation } from '../../../../shared/models/operation';
 import { Asset } from '../../../../shared/models/asset';
 
 @Component({
@@ -55,6 +55,10 @@ export class PortfolioOperationsCardComponent {
     if (numValue > 0) return 'fa-arrow-up';
     if (numValue < 0) return 'fa-arrow-down';
     return 'fa-minus';
+  }
+
+  getOperationTypeTranslation(type: OperationType): string {
+    return getOperationTypeTranslation(type);
   }
 
   getOperationTypeClass(type: OperationType): string {

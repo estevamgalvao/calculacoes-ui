@@ -2,9 +2,9 @@
   <!-- Loading State -->
   <div *ngIf="loading" class="loading-container">
     <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
+      <span class="visually-hidden">Carregando...</span>
     </div>
-    <p class="loading-text">Loading portfolio...</p>
+    <p class="loading-text">Carregando portfólio...</p>
   </div>
 
   <!-- Main Content -->
@@ -16,12 +16,12 @@
         <button 
           class="close-button"
           (click)="onCloseClick()"
-          aria-label="Close portfolio view">
+          aria-label="Fechar visualização do portfólio">
           <i class="fas fa-times"></i>
         </button>
         <div class="header-title">
           <i class="fas fa-briefcase header-icon"></i>
-          <h5 class="mb-0">Portfolio Summary</h5>
+          <h5 class="mb-0">Resumo do Portfólio</h5>
         </div>
       </div>
 
@@ -29,14 +29,14 @@
 
       <div class="header-stats">
         <div class="stat-item">
-          <span class="stat-label">Positions</span>
+          <span class="stat-label">Posições</span>
           <span class="stat-value">{{ getPositionsCount() }}</span>
         </div>
 
         <div class="stat-divider"></div>
 
         <div class="stat-item">
-          <span class="stat-label">Total Invested</span>
+          <span class="stat-label">Total Investido</span>
           <span class="stat-value">
             {{ toNumber(portfolioSummary.totalInvested) | currency: currency:'symbol':'1.2-2' }}
           </span>
@@ -45,7 +45,7 @@
         <div class="stat-divider"></div>
 
         <div class="stat-item">
-          <span class="stat-label">Realized P&L</span>
+          <span class="stat-label">P&L Realizado</span>
           <span 
             class="stat-value"
             [ngClass]="{
@@ -70,7 +70,7 @@
         (click)="onAssetClick(asset)"
         role="button"
         tabindex="0"
-        [attr.aria-label]="'View details for ' + asset.name"
+        [attr.aria-label]="'Ver detalhes de ' + asset.name"
         (keydown.enter)="onAssetClick(asset)"
         (keydown.space)="onAssetClick(asset)">
         
@@ -113,7 +113,7 @@
             <div class="detail-item">
               <span class="detail-label">
                 <i class="fas fa-layer-group"></i>
-                Quantity
+                Quantidade
               </span>
               <span class="detail-value">{{ asset.quantity | number:'1.0-4' }}</span>
             </div>
@@ -121,7 +121,7 @@
             <div class="detail-item">
               <span class="detail-label">
                 <i class="fas fa-tag"></i>
-                Avg. Price
+                Preço Médio
               </span>
               <span class="detail-value">
                 {{ toNumber(asset.averagePrice) | currency: currency:'symbol':'1.2-2' }}
@@ -131,7 +131,7 @@
             <div class="detail-item">
               <span class="detail-label">
                 <i class="fas fa-wallet"></i>
-                Total Value
+                Valor Total
               </span>
               <span class="detail-value detail-value-highlight">
                 {{ toNumber(asset.totalValue) | currency: currency:'symbol':'1.2-2' }}
@@ -163,15 +163,15 @@
     <!-- Empty State -->
     <div *ngIf="getPositionsCount() === 0" class="empty-state">
       <i class="fas fa-inbox empty-icon"></i>
-      <h6 class="empty-title">No positions yet</h6>
-      <p class="empty-text">Start adding assets to your portfolio to see them here.</p>
+      <h6 class="empty-title">Nenhuma posição ainda</h6>
+      <p class="empty-text">Comece a adicionar ativos ao seu portfólio para vê-los aqui.</p>
     </div>
   </div>
 
   <!-- No Data State -->
   <div *ngIf="!loading && !portfolioSummary" class="no-data-state">
     <i class="fas fa-exclamation-circle no-data-icon"></i>
-    <h6 class="no-data-title">No portfolio data available</h6>
-    <p class="no-data-text">Please load your portfolio to view positions.</p>
+    <h6 class="no-data-title">Nenhum dado de portfólio disponível</h6>
+    <p class="no-data-text">Por favor, carregue seu portfólio para visualizar as posições.</p>
   </div>
 </div>
