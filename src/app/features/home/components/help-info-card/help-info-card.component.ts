@@ -31,7 +31,7 @@ export class HelpInfoCardComponent {
         'Lucro/prejuízo realizado total e por ação',
         'Informações organizadas para declaração do Imposto de Renda'
       ],
-      isExpanded: true
+      isExpanded: false
     },
     {
       id: 'file-format',
@@ -41,11 +41,11 @@ export class HelpInfoCardComponent {
       items: [
         'Formato: CSV (separado por vírgulas)',
         'Codificação: UTF-8',
-        'Colunas: Data, Tipo de Operação, Tipo de Mercado, Instituição, Código do Ativo, Quantidade, Preço, Valor Total',
+        'Colunas: Data do Negócio,Tipo de Movimentação,Mercado,Prazo/Vencimento,Instituição,Código de Negociação,Quantidade,Preço,Valor',
         'Importante: Adicione manualmente as linhas de POSIÇÃO do ano anterior antes de enviar'
       ],
-      example: '31/12/2023,POSIÇÃO,,,XP INVESTIMENTOS CCTVM S/A,MCHF11,234," R$ 9,18 "," R$ 2.148,12 "\n24/01/2024,Compra,Mercado Fracionário,-,XP INVESTIMENTOS CCTVM S/A,GOAU4F,50," R$ 10,03 "," R$ 501,50 "\n19/01/2024,Venda,Mercado à Vista,-,XP INVESTIMENTOS CCTVM S/A,USIM5,100," R$ 8,64 "," R$ 864,00 "',
-      isExpanded: false
+      example: 'Data do Negócio,Tipo de Movimentação,Mercado,Prazo/Vencimento,Instituição,Código de Negociação,Quantidade,Preço,Valor\n31/12/2023,POSIÇÃO,,,XP INVESTIMENTOS CCTVM S/A,MCHF11,234," R$ 9,18 "," R$ 2.148,12 "\n24/01/2024,Compra,Mercado Fracionário,-,XP INVESTIMENTOS CCTVM S/A,GOAU4F,50," R$ 10,03 "," R$ 501,50 "\n19/01/2024,Venda,Mercado à Vista,-,XP INVESTIMENTOS CCTVM S/A,USIM5,100," R$ 8,64 "," R$ 864,00 "',
+      isExpanded: true
     },
     {
       id: 'restrictions',
@@ -58,7 +58,7 @@ export class HelpInfoCardComponent {
         'A B3 exibe apenas compras e vendas do ano atual',
         'Você deve adicionar manualmente as posições do ano anterior',
         'Use o formato de data DD/MM/AAAA',
-        'Valores monetários devem seguir o padrão brasileiro (R$ X,XX)'
+        'Valores monetários devem seguir o padrão brasileiro entre aspas ("R$ X.XXX,XX")'
       ],
       isExpanded: false
     }
