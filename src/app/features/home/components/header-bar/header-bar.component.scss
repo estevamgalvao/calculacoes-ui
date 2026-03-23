@@ -25,7 +25,10 @@
   // BRAND / LOGO
   // ============================================
   .navbar-brand-wrapper {
+    flex: 1;           // take up equal space as user menu wrapper for centering
     flex-shrink: 0;
+    display: flex;
+    justify-content: flex-start;  // brand to the left
   }
 
   .navbar-brand {
@@ -152,12 +155,25 @@
     }
   }
 
+// ====
+// USER MENU WRAPPER (always present for layout balance)
+// ====
+  .navbar-user-wrapper {
+    flex: 1;           // same flex as brand-wrapper
+    flex-shrink: 0;
+    display: none;
+    justify-content: flex-end;   // user menu to the right
+
+    @media (min-width: 992px) {
+      display: flex;
+    }
+  }
   // ============================================
   // USER MENU
   // ============================================
   .navbar-user {
-    flex-shrink: 0;
-    display: none;
+    /* flex-shrink: 0;
+    display: none; */
 
     @media (min-width: 992px) {
       display: block;

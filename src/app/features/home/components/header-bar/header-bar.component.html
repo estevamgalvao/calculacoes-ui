@@ -40,19 +40,21 @@
         </ul>
       </div>
 
-      <!-- User Menu -->
-      <div *ngIf="showUserMenu" class="navbar-user">
-        <button 
-          class="user-menu-btn"
-          (click)="onUserMenuClick()"
-          [attr.aria-label]="'User menu for ' + (userName || 'user')">
-          <div class="user-avatar">
-            <img *ngIf="userAvatar" [src]="userAvatar" [alt]="userName || 'User'" class="avatar-img">
-            <span *ngIf="!userAvatar" class="avatar-initials">{{ getUserInitials() }}</span>
-          </div>
-          <span *ngIf="userName" class="user-name d-none d-md-inline">{{ userName }}</span>
-          <i class="fas fa-chevron-down user-chevron d-none d-md-inline"></i>
-        </button>
+      <!-- User Menu (always present for layout balance) -->
+      <div class="navbar-user-wrapper">
+        <div *ngIf="showUserMenu" class="navbar-user">
+          <button 
+            class="user-menu-btn"
+            (click)="onUserMenuClick()"
+            [attr.aria-label]="'User menu for ' + (userName || 'user')">
+            <div class="user-avatar">
+              <img *ngIf="userAvatar" [src]="userAvatar" [alt]="userName || 'User'" class="avatar-img">
+              <span *ngIf="!userAvatar" class="avatar-initials">{{ getUserInitials() }}</span>
+            </div>
+            <span *ngIf="userName" class="user-name d-none d-md-inline">{{ getUserFirstName() }}</span>
+            <i class="fas fa-chevron-down user-chevron d-none d-md-inline"></i>
+          </button>
+        </div>
       </div>
 
       <!-- Mobile Menu Toggle -->

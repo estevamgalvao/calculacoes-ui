@@ -57,6 +57,11 @@ export class HeaderBarComponent {
     return this.activeMenuId === itemId;
   }
 
+  getUserFirstName(): string {
+    if (!this.userName) return 'User';
+    return this.userName.split(' ')[0];
+  }
+
   getUserInitials(): string {
     if (!this.userName) return 'U';
     
