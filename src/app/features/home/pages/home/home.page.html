@@ -54,3 +54,9 @@
 <div class="container py-4" *ngIf="activeMenuId === 'help'">
     <app-help-info-card></app-help-info-card>
 </div>
+
+<app-footer-bar
+    [config]="footerConfig"
+    [currentYear]="currentYear"
+    (linkClicked)="onFooterLinkClicked($event)">
+</app-footer-bar>

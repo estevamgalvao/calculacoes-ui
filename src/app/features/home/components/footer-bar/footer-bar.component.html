@@ -1,0 +1,63 @@
+<!-- footer-bar.component.html -->
+<footer class="footer-bar" *ngIf="config">
+  <div class="footer-container">
+
+    <!-- Author Section -->
+    <div class="footer-section author-section">
+      <span class="section-label">Desenvolvido por</span>
+      <span class="author-name">{{ config.author.name }}</span>
+      <div class="author-links">
+        <a
+          *ngFor="let link of config.author.links"
+          class="footer-link"
+          [href]="link.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          [attr.aria-label]="link.label"
+          (click)="onLinkClick(link)">
+          <i *ngIf="link.icon" class="fab" [ngClass]="link.icon"></i>
+          {{ link.label }}
+        </a>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="footer-divider"></div>
+
+    <!-- Donation Section -->
+    <div class="footer-section donation-section">
+      <div class="donation-info">
+        <span class="section-label">Apoie o projeto</span>
+        <p class="donation-message">
+          {{ config.donation.message || 'Contribua via Pix para manter a infraestrutura.' }}
+        </p>
+        <div class="pix-key-wrapper">
+          <span class="pix-key">{{ config.donation.pixKey }}</span>
+          <button
+            class="copy-button"
+            (click)="onCopyPixKey()"
+            [class.copied]="pixCopied"
+            [attr.aria-label]="pixCopied ? 'Chave copiada!' : 'Copiar chave Pix'">
+            <i class="fas" [ngClass]="pixCopied ? 'fa-check' : 'fa-copy'"></i>
+            <span>{{ pixCopied ? 'Copiado!' : 'Copiar' }}</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="qr-code-wrapper">
+        <img
+          [src]="config.donation.qrCodeUrl"
+          alt="QR Code para doação via Pix"
+          class="qr-code"
+          loading="lazy" />
+        <span class="qr-label">Escanear QR Code</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer-bottom">
+    <span>© {{ currentYear }} {{ config.author.name }} — CalculAções</span>
+  </div>
+</footer>

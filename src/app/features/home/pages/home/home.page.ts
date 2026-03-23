@@ -12,6 +12,7 @@ import { PortfolioSummary } from '../../../../shared/models/portfolio-summary';
 import { HelpInfoCardComponent } from '../../components/help-info-card/help-info-card.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { FooterBarComponent, FooterConfig, FooterLink } from '../../components/footer-bar/footer-bar.component';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ import { MessageService } from 'primeng/api';
     PortfolioPositionsCardComponent,
     PortfolioOperationsCardComponent,
     HelpInfoCardComponent,
+    FooterBarComponent,
     CommonModule,
     ToastModule
   ],
@@ -204,6 +206,38 @@ export class HomePage {
     this.selectedAsset = null;
     this.showOperationsCard = false;
     this.showPositionsCard = true;
+  }
+
+  currentYear = new Date().getFullYear();
+
+  footerConfig: FooterConfig = {
+    author: {
+      name: 'Estevam Galvão',
+      links: [
+        {
+          id: 'linkedin',
+          label: 'LinkedIn',
+          url: 'https://linkedin.com/in/estevamgalvao',
+          icon: 'fa-linkedin'
+        },
+        {
+          id: 'github',
+          label: 'GitHub',
+          url: 'https://github.com/estevamgalvao',
+          icon: 'fa-github'
+        }
+      ]
+    },
+    donation: {
+      pixKey: '690097d5-f828-4c02-8123-d0d5c6026b68',
+      qrCodeUrl: 'https://i.ibb.co/HLpGhfXx/pix-qr-code.png',
+      message: 'Contribua via Pix para manter a infraestrutura.'
+    }
+  };
+
+  onFooterLinkClicked(link: FooterLink): void {
+    console.log('Footer link clicked:', link);
+    // icantrack analytics, log, etc.
   }
 
 }
