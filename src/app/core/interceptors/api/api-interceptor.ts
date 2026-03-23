@@ -31,7 +31,7 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
 
         if (body?.success) {
           const msg = responseHandler.handleResponse(body);
-          showSuccess(msg);
+          //showSuccess(msg);
         }
       }
     }),

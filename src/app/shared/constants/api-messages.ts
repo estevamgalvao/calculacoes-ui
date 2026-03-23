@@ -10,5 +10,6 @@ export const HTTP_STATUS_GENERIC: Record<number, string> = {
   401: 'Sua sessão expirou. Faça login novamente.',
   403: 'Acesso negado.',
   404: 'O recurso solicitado não existe.',
+  413: 'O arquivo enviado é muito grande (+ 10MB). Tente um arquivo menor.',
   500: 'Erro interno no servidor. Tente novamente em instantes.'
 };
