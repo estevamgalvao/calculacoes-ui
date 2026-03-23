@@ -135,7 +135,7 @@ export class HomePage {
           this.summary = res.data;
         } else {
           this.errorMessage = res.message || 'Erro ao processar o arquivo.';
-          this.showToastError(this.errorMessage);
+          //this.showToastError(this.errorMessage);
         }
         console.log('Summary after processing:', this.summary);
         this.isLoadingPositions = false;
@@ -146,7 +146,7 @@ export class HomePage {
         console.error(err);
         this.errorMessage =
           err?.error?.message || 'Erro de comunicação com o servidor.';
-        this.showToastError(this.errorMessage);
+        //this.showToastError(this.errorMessage);
         this.isLoadingPositions = false;
         this.cdr.markForCheck();
       },
