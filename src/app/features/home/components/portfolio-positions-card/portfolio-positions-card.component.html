@@ -170,6 +170,12 @@
 
   <!-- No Data State -->
   <div *ngIf="!loading && !portfolioSummary" class="no-data-state">
+    <button 
+      type="button" 
+      class="btn-close btn-close-sm" 
+      (click)="onCloseClick()"
+      aria-label="Fechar visualização do portfólio vazio">
+    </button>
     <i class="fas fa-exclamation-circle no-data-icon"></i>
     <h6 class="no-data-title">Nenhum dado de portfólio disponível</h6>
     <p class="no-data-text">Por favor, carregue seu portfólio para visualizar as posições.</p>
