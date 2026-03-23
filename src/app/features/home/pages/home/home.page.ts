@@ -189,6 +189,8 @@ export class HomePage {
 
   onCloseClicked(): void {
     this.summary = null;
+    this.currentFile = null;
+    this.currentFileMetadata = null;
     this.showOperationsCard = false;
     this.showPositionsCard = false;
     this.showUploadComponent = true;
