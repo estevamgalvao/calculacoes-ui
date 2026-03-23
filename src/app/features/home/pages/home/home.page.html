@@ -21,12 +21,13 @@
     <app-file-upload-card
         *ngIf="showUploadComponent"
         [uploadedFile]="currentFileMetadata"
-        [acceptedFormats]="'.pdf,.doc,.docx,.xlsx,.csv'"
-        [maxSizeInMB]="5"
+        [acceptedFormats]="acceptedFormats"
+        [maxSizeInMB]="maxSizeInMB"
         [disabled]="isUploading"
         (fileSelected)="onFileSelected($event)"
         (fileRemoved)="onFileRemoved()"
-        (fileProcessed)="onProcessFile()">
+        (fileProcessed)="onProcessFile()"
+        (fileError)="onFileError($event)">
     </app-file-upload-card>
 
     <!-- Show positions card when no asset is selected -->

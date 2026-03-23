@@ -36,6 +36,9 @@ export class HomePage {
 
   private messageService = inject(MessageService);
 
+  acceptedFormats = '.csv';
+  maxSizeInMB = 10;
+
   /* Methods for calling toast component */
   showToastError(errorMsg?: string | null) {
     this.messageService.add({ 
@@ -135,7 +138,7 @@ export class HomePage {
           this.summary = res.data;
         } else {
           this.errorMessage = res.message || 'Erro ao processar o arquivo.';
-          //this.showToastError(this.errorMessage);
+          //this.showToastError(this.errorMessage); // using interceptor to show error toast now
         }
         console.log('Summary after processing:', this.summary);
         this.isLoadingPositions = false;
@@ -146,7 +149,7 @@ export class HomePage {
         console.error(err);
         this.errorMessage =
           err?.error?.message || 'Erro de comunicação com o servidor.';
-        //this.showToastError(this.errorMessage);
+        //this.showToastError(this.errorMessage); // using interceptor to show error toast now
         this.isLoadingPositions = false;
         this.cdr.markForCheck();
       },
@@ -162,6 +165,16 @@ export class HomePage {
     this.currentFileMetadata = null;
   }
 
+  onFileError(errorCode: number): void {
+    let errorMsg = 'Ocorreu um erro ao processar o arquivo.';
+    if (errorCode === 1) {
+      errorMsg = `Arquivo muito grande. O tamanho máximo permitido é ${this.maxSizeInMB}MB.`;
+    } else if (errorCode === 2) {
+      errorMsg = `Formato de arquivo inválido. Aceitamos apenas ${this.acceptedFormats}`;
+    }
+    this.showToastError(errorMsg);
+  }
+
   onAssetClicked(asset: Asset): void {
     console.log('Asset clicked:', asset);
     this.selectedAsset = asset;
@@ -175,8 +188,8 @@ export class HomePage {
   }
 
   onCloseClicked(): void {
-    console.log('Close clicked, returning to file upload');
-
+    this.summary = null;
+    this.showOperationsCard = false;
     this.showPositionsCard = false;
     this.showUploadComponent = true;
   }

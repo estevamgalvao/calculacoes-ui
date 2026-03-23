@@ -25,16 +25,35 @@ export class FileUploadCardComponent {
   @Output() fileRemoved = new EventEmitter<void>();
   @Output() fileProcessed = new EventEmitter<void>();
 
-  onFileSelect(event: Event): void {
+  // 1 = file too large, 2 = invalid format, 3 = other error
+  @Output() fileError = new EventEmitter<number>();
+
+   onFileSelect(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+
+      // Validate file size
+      const maxSizeInBytes = this.maxSizeInMB * 1024 * 1024;
+      if (file.size > maxSizeInBytes) {
+        this.fileError.emit(1);
+        return;
+      }
+
+      // Validate file format
+      const acceptedTypes = this.acceptedFormats.split(',').map(type => type.trim());
+      const fileExtension = file.name.split('.').pop()?.toLowerCase() || '';
+      if (!acceptedTypes.includes(`.${fileExtension}`) && !acceptedTypes.includes('*')) {
+        this.fileError.emit(2); 
+        return;
+      }
+
       this.fileSelected.emit(file);
       // Reset input to allow selecting the same file again
       input.value = '';
     }
   }
-
+  
   onProcessFile(): void {
     this.fileProcessed.emit();
   }
