@@ -503,6 +503,249 @@
 }
 
 // ============================================
+// FILTER BAR
+// ============================================
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-background-light);
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+
+  // Search
+  .filter-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 0 0 200px;
+
+    .search-icon {
+      position: absolute;
+      left: 0.625rem;
+      color: var(--color-text-muted);
+      font-size: 0.75rem;
+      pointer-events: none;
+    }
+
+    .filter-input {
+      width: 100%;
+      padding: 0.375rem 1.75rem 0.375rem 1.875rem;
+      font-size: 0.8125rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background-color: var(--color-background-card);
+      color: var(--color-text);
+      transition: border-color var(--transition-fast);
+      outline: none;
+
+      &::placeholder {
+        color: var(--color-text-muted);
+      }
+
+      &:focus {
+        border-color: var(--color-primary-light);
+        box-shadow: 0 0 0 2px rgba(62, 146, 204, 0.12);
+      }
+    }
+
+    .clear-search {
+      position: absolute;
+      right: 0.5rem;
+      background: none;
+      border: none;
+      color: var(--color-text-muted);
+      font-size: 0.7rem;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+      transition: color var(--transition-fast);
+
+      &:hover {
+        color: var(--color-text);
+      }
+    }
+  }
+
+  // Vertical separator
+  .filter-separator {
+    width: 1px;
+    height: 24px;
+    background-color: var(--color-border);
+    flex-shrink: 0;
+  }
+
+  // Checkboxes
+  .filter-checks {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+
+    .filter-check {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      padding: 0.3rem 0.625rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background-color: var(--color-background-card);
+      transition: all var(--transition-fast);
+      user-select: none;
+
+      input[type="checkbox"] {
+        display: none; // hidden — the label itself acts as toggle
+      }
+
+      &:hover {
+        border-color: var(--color-primary-light);
+        color: var(--color-primary);
+      }
+
+      &.active {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+        color: white;
+
+        .profit-label,
+        .loss-label {
+          color: white;
+        }
+      }
+
+      .profit-label {
+        color: var(--color-profit);
+      }
+
+      .loss-label {
+        color: var(--color-loss);
+      }
+    }
+  }
+
+  // Sort
+  .filter-sort {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-left: auto;
+
+    .sort-select {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.5rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background-color: var(--color-background-card);
+      color: var(--color-text);
+      cursor: pointer;
+      outline: none;
+      transition: border-color var(--transition-fast);
+
+      &:focus {
+        border-color: var(--color-primary-light);
+      }
+    }
+
+    .sort-direction {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background-color: var(--color-background-card);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: 0.7rem;
+      transition: all var(--transition-fast);
+
+      &:hover {
+        border-color: var(--color-primary-light);
+        color: var(--color-primary);
+      }
+    }
+
+    .reset-filters {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.3rem 0.625rem;
+      border: 1px solid var(--color-loss);
+      border-radius: var(--radius-sm);
+      background-color: transparent;
+      color: var(--color-loss);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+
+      &:hover {
+        background-color: var(--color-loss);
+        color: white;
+      }
+    }
+  }
+}
+
+// ============================================
+// NO RESULTS STATE
+// ============================================
+.no-results-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  width: 100%;
+
+  .no-results-icon {
+    font-size: 1.75rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .no-results-text {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.875rem;
+  }
+
+  .btn-reset-inline {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 0.375rem 0.875rem;
+    border: 1px solid var(--color-primary-light);
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      background-color: var(--color-primary);
+      color: white;
+    }
+  }
+}
+
+// ============================================
+// STAT TOTAL (e.g. "3/12")
+// ============================================
+.stat-total {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  margin-left: 1px;
+}
+
+// ============================================
 // RESPONSIVE ADJUSTMENTS
 // ============================================
 @media (max-width: 992px) {
@@ -543,6 +786,23 @@
       .asset-details .detail-row {
         grid-template-columns: 1fr;
       }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-bar {
+    gap: 0.5rem;
+    padding: 0.625rem 0.75rem;
+
+    .filter-search {
+      flex: 1 1 100%;
+    }
+
+    .filter-sort {
+      margin-left: 0;
+      width: 100%;
+      justify-content: flex-end;
     }
   }
 }

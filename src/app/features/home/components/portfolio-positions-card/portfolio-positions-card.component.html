@@ -1,3 +1,4 @@
+<!-- portfolio-positions-card.component.html -->
 <div class="portfolio-positions-card">
   <!-- Loading State -->
   <div *ngIf="loading" class="loading-container">
@@ -9,11 +10,11 @@
 
   <!-- Main Content -->
   <div *ngIf="!loading && portfolioSummary" class="portfolio-container">
+
     <!-- Header Bar -->
     <div class="portfolio-header">
-
       <div class="header-left">
-        <button 
+        <button
           class="close-button"
           (click)="onCloseClick()"
           aria-label="Fechar visualização do portfólio">
@@ -25,12 +26,15 @@
         </div>
       </div>
 
-
-
       <div class="header-stats">
         <div class="stat-item">
           <span class="stat-label">Posições</span>
-          <span class="stat-value">{{ getPositionsCount() }}</span>
+          <span class="stat-value">
+            <ng-container *ngIf="isFilterActive(); else totalOnly">
+              {{ getDisplayedCount() }}<span class="stat-total">/{{ getPositionsCount() }}</span>
+            </ng-container>
+            <ng-template #totalOnly>{{ getPositionsCount() }}</ng-template>
+          </span>
         </div>
 
         <div class="stat-divider"></div>
@@ -46,14 +50,13 @@
 
         <div class="stat-item">
           <span class="stat-label">P&L Realizado</span>
-          <span 
+          <span
             class="stat-value"
             [ngClass]="{
               'text-profit': isProfitable(portfolioSummary.totalRealizedProfitLoss),
               'text-loss': isLoss(portfolioSummary.totalRealizedProfitLoss)
             }">
-            <i 
-              class="fas stat-icon"
+            <i class="fas stat-icon"
               [ngClass]="getProfitLossIcon(portfolioSummary.totalRealizedProfitLoss)">
             </i>
             {{ toNumber(portfolioSummary.totalRealizedProfitLoss) | currency: currency:'symbol':'1.2-2' }}
@@ -62,10 +65,112 @@
       </div>
     </div>
 
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- FILTER BAR                                                  -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="filter-bar">
+
+      <!-- Search -->
+      <div class="filter-search">
+        <i class="fas fa-search search-icon"></i>
+        <input
+          type="text"
+          class="filter-input"
+          placeholder="Buscar ativo..."
+          [(ngModel)]="filterState.searchText"
+          (ngModelChange)="onSearchChange()"
+          aria-label="Buscar ativo por nome ou código" />
+        <button
+          *ngIf="filterState.searchText"
+          class="clear-search"
+          (click)="filterState.searchText = ''; onSearchChange()"
+          aria-label="Limpar busca">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Checkboxes -->
+      <div class="filter-checks">
+        <label class="filter-check" [class.active]="filterState.hideZeroQuantity">
+          <input type="checkbox"
+            [(ngModel)]="filterState.hideZeroQuantity"
+            (ngModelChange)="onFilterChange('onlyProfit')" />
+          <span>Ocultar zerados</span>
+        </label>
+
+        <label class="filter-check" [class.active]="filterState.onlyProfit">
+          <input type="checkbox"
+            [(ngModel)]="filterState.onlyProfit"
+            (ngModelChange)="onFilterChange('onlyProfit')" />
+          <span class="profit-label">Lucro</span>
+        </label>
+
+        <label class="filter-check" [class.active]="filterState.onlyLoss">
+          <input type="checkbox"
+            [(ngModel)]="filterState.onlyLoss"
+            (ngModelChange)="onFilterChange('onlyLoss')" />
+          <span class="loss-label">Prejuízo</span>
+        </label>
+
+        <label class="filter-check" [class.active]="filterState.onlyFunds">
+          <input type="checkbox"
+            [(ngModel)]="filterState.onlyFunds"
+            (ngModelChange)="onFilterChange('onlyFunds')" />
+          <span>Fundos</span>
+        </label>
+
+        <label class="filter-check" [class.active]="filterState.onlyStocks">
+          <input type="checkbox"
+            [(ngModel)]="filterState.onlyStocks"
+            (ngModelChange)="onFilterChange('onlyStocks')" />
+          <span>Ações</span>
+        </label>
+      </div>
+
+      <!-- Sort -->
+      <div class="filter-sort">
+        <select
+          class="sort-select"
+          [(ngModel)]="filterState.sortBy"
+          (ngModelChange)="onSortChange()"
+          aria-label="Ordenar por">
+          <option *ngFor="let opt of sortOptions" [value]="opt.value">
+            {{ opt.label }}
+          </option>
+        </select>
+
+        <button
+          class="sort-direction"
+          (click)="toggleSortDirection()"
+          [attr.aria-label]="filterState.sortDirection === 'asc' ? 'Ordem crescente' : 'Ordem decrescente'">
+          <i class="fas"
+            [ngClass]="filterState.sortDirection === 'asc' ? 'fa-arrow-up' : 'fa-arrow-down'">
+          </i>
+        </button>
+
+        <button
+          *ngIf="isFilterActive()"
+          class="reset-filters"
+          (click)="resetFilters()"
+          aria-label="Limpar todos os filtros">
+          <i class="fas fa-filter-circle-xmark"></i>
+          <span>Limpar</span>
+        </button>
+      </div>
+    </div>
+
     <!-- Assets Grid -->
     <div class="assets-grid">
-      <div 
-        *ngFor="let asset of portfolioSummary.positions; trackBy: trackByAssetCode"
+
+      <!-- No results from filter -->
+      <div *ngIf="displayedPositions.length === 0" class="no-results-state">
+        <i class="fas fa-magnifying-glass no-results-icon"></i>
+        <p class="no-results-text">Nenhum ativo encontrado com os filtros aplicados.</p>
+        <button class="btn-reset-inline" (click)="resetFilters()">Limpar filtros</button>
+      </div>
+
+      <div
+        *ngFor="let asset of displayedPositions; trackBy: trackByAssetCode"
         class="asset-card"
         (click)="onAssetClick(asset)"
         role="button"
@@ -73,7 +178,7 @@
         [attr.aria-label]="'Ver detalhes de ' + asset.name"
         (keydown.enter)="onAssetClick(asset)"
         (keydown.space)="onAssetClick(asset)">
-        
+
         <!-- Asset Header -->
         <div class="asset-header">
           <div class="asset-title-section">
@@ -91,19 +196,15 @@
             <i class="fas fa-exchange-alt"></i>
             {{ getOperationsCount(asset) }} ops
           </span>
-          <span 
+          <span
             class="badge profit-loss-badge"
             [ngClass]="{
               'bg-profit': isProfitable(asset.realizedProfitLoss),
               'bg-loss': isLoss(asset.realizedProfitLoss),
               'bg-secondary': toNumber(asset.realizedProfitLoss) === 0
             }">
-            <i 
-              class="fas"
-              [ngClass]="getProfitLossIcon(asset.realizedProfitLoss)">
-            </i>
-            <!-- {{ formatPercentage(asset.realizedProfitLoss, asset.totalValue) }}% -->
-              {{ toNumber(asset.realizedProfitLoss) | currency: currency:'symbol':'1.2-2' }}
+            <i class="fas" [ngClass]="getProfitLossIcon(asset.realizedProfitLoss)"></i>
+            {{ toNumber(asset.realizedProfitLoss) | currency: currency:'symbol':'1.2-2' }}
           </span>
         </div>
 
@@ -139,28 +240,10 @@
             </div>
           </div>
         </div>
-
-        <!-- decided to remove the asset footer made it more compact -->
-        <!-- Profit/Loss Badge -->
-<!--         <div class="asset-footer">
-          <span 
-            class="badge profit-loss-badge"
-            [ngClass]="{
-              'bg-profit': isProfitable(asset.realizedProfitLoss),
-              'bg-loss': isLoss(asset.realizedProfitLoss),
-              'bg-secondary': toNumber(asset.realizedProfitLoss) === 0
-            }">
-            <i 
-              class="fas"
-              [ngClass]="getProfitLossIcon(asset.realizedProfitLoss)">
-            </i>
-            {{ formatPercentage(asset.realizedProfitLoss, asset.totalValue) }}%
-          </span>
-        </div> -->
       </div>
     </div>
 
-    <!-- Empty State -->
+    <!-- Empty State (no positions at all in input) -->
     <div *ngIf="getPositionsCount() === 0" class="empty-state">
       <i class="fas fa-inbox empty-icon"></i>
       <h6 class="empty-title">Nenhuma posição ainda</h6>
@@ -170,9 +253,9 @@
 
   <!-- No Data State -->
   <div *ngIf="!loading && !portfolioSummary" class="no-data-state">
-    <button 
-      type="button" 
-      class="btn-close btn-close-sm" 
+    <button
+      type="button"
+      class="btn-close btn-close-sm"
       (click)="onCloseClick()"
       aria-label="Fechar visualização do portfólio vazio">
     </button>
