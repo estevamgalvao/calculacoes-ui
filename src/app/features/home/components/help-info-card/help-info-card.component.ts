@@ -29,7 +29,8 @@ export class HelpInfoCardComponent {
         'Posições consolidadas por ativo',
         'Preço médio de compra calculado',
         'Lucro/prejuízo realizado total e por ação',
-        'Informações organizadas para declaração do Imposto de Renda'
+        'Informações organizadas para declaração do Imposto de Renda',
+        'NADA É ARMAZENADO, tudo é processado localmente no seu navegador'
       ],
       isExpanded: false
     },
@@ -37,14 +38,14 @@ export class HelpInfoCardComponent {
       id: 'file-format',
       title: 'Formato do Arquivo',
       icon: 'fa-file-csv',
-      content: 'O arquivo deve ser um CSV no formato padrão da B3, contendo suas operações de compra, venda e posições iniciais.',
+      content: 'O arquivo deve ser um CSV no formato de colunas padrão da B3 para operações, contendo suas operações de compra, venda e posições iniciais.',
       items: [
-        'Formato: CSV (separado por vírgulas)',
+        'Formato: CSV (separado por vírgulas, ponto e vírgula ou tabulação)',
         'Codificação: UTF-8',
         'Colunas: Data do Negócio,Tipo de Movimentação,Mercado,Prazo/Vencimento,Instituição,Código de Negociação,Quantidade,Preço,Valor',
         'Importante: Adicione manualmente as linhas de POSIÇÃO do ano anterior antes de enviar'
       ],
-      example: 'Data do Negócio,Tipo de Movimentação,Mercado,Prazo/Vencimento,Instituição,Código de Negociação,Quantidade,Preço,Valor\n31/12/2023,POSIÇÃO,,,XP INVESTIMENTOS CCTVM S/A,MCHF11,234," R$ 9,18 "," R$ 2.148,12 "\n24/01/2024,Compra,Mercado Fracionário,-,XP INVESTIMENTOS CCTVM S/A,GOAU4F,50," R$ 10,03 "," R$ 501,50 "\n19/01/2024,Venda,Mercado à Vista,-,XP INVESTIMENTOS CCTVM S/A,USIM5,100," R$ 8,64 "," R$ 864,00 "',
+      example: 'Data do Negócio,Tipo de Movimentação,Mercado,Prazo/Vencimento,Instituição,Código de Negociação,Quantidade,Preço,Valor\n31/12/2023,POSIÇÃO,,,XP INVESTIMENTOS CCTVM S/A,MCHF11,234," R$ 9,18 "," R$ 2.148,12 "\n24/01/2024,Compra,Mercado Fracionário,-,XP INVESTIMENTOS CCTVM S/A,GOAU4F,50," R$ 10,03 "," R$ 501,50 "\n19/01/2024,Venda,Mercado à Vista,-,XP INVESTIMENTOS CCTVM S/A,USIM5,100," R$ 8,64 "," R$ 864,00 "\n\n\nData do Negócio;Tipo de Movimentação;Mercado;Prazo/Vencimento;Instituição;Código de Negociação;Quantidade;Preço;Valor\n31/12/2023;POSIÇÃO;;;XP INVESTIMENTOS CCTVM S/A;MCHF11;234;R$ 9,18;R$ 2.148,12\n24/01/2024;Compra;Mercado Fracionário;-;XP INVESTIMENTOS CCTVM S/A;GOAU4F;50;R$ 10,03;R$ 501,50\n19/01/2024;Venda;Mercado à Vista;-;XP INVESTIMENTOS CCTVM S/A;USIM5;100;R$ 8,64;R$ 864,00',
       isExpanded: true
     },
     {
